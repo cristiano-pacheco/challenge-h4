@@ -1,0 +1,74 @@
+{
+  "name": "hapi-start",
+  "version": "0.0.1",
+  "description": "Hapi rest api starter kit",
+  "main": "src/server.js",
+  "private": true,
+  "scripts": {
+    "preinstall": "npm i -g pm2",
+    "start": "NODE_ENV=dev nodemon",
+    "prod": "NODE_ENV=prod pm2-docker src/server.js",
+    "test": "NODE_ENV=test node scripts/test.js",
+    "lint": "standard --verbose | snazzy",
+    "lint:fix": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cristianopacheco/hapi-start.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cristianopacheco/hapi-start/issues"
+  },
+  "engines": {
+    "node": "~8.9.0",
+    "npm": "~5.4.0"
+  },
+  "keywords": [],
+  "author": "Cristiano Pacheco",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "boom": "^7.2.0",
+    "dotenv": "^5.0.1",
+    "hapi": "^17.3.1",
+    "hapi-auth-jwt2": "^8.1.0",
+    "hapi-router": "^4.0.0",
+    "hapi-swagger": "^9.1.1",
+    "inert": "^5.1.0",
+    "joi": "^13.1.2",
+    "jsonwebtoken": "^8.2.1",
+    "mongoose": "^5.0.13",
+    "vision": "^5.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "jest": "^22.4.3",
+    "snazzy": "^7.1.1",
+    "standard": "^11.0.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js}"
+    ],
+    "setupFiles": [
+      "<rootDir>/test/jest-setup.js"
+    ],
+    "testMatch": [
+      "<rootDir>/test/**/?(*.)test.{js}",
+      "<rootDir>/src/**/tests/**/*.test.{js}"
+    ],
+    "testEnvironment": "node"
+  },
+  "standard": {
+    "globals": [
+      "it",
+      "describe",
+      "expect",
+      "server",
+      "afterAll",
+      "beforeEach",
+      "jest",
+      "token"
+    ]
+  }
+}
