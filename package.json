@@ -1,7 +1,7 @@
 {
-  "name": "hapi-start",
+  "name": "challenge-h4",
   "version": "0.0.1",
-  "description": "Hapi rest api starter kit",
+  "description": "Hapi rest api challenge h4",
   "main": "src/server.js",
   "private": true,
   "scripts": {
@@ -14,10 +14,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cristianopacheco/hapi-start.git"
+    "url": "git+https://github.com/cristianopacheco/challenge-h4.git"
   },
   "bugs": {
-    "url": "https://github.com/cristianopacheco/hapi-start/issues"
+    "url": "https://github.com/cristianopacheco/challenge-h4/issues"
   },
   "engines": {
     "node": "~8.9.0",
