@@ -12,7 +12,6 @@ describe('/users', () => {
 
   const defaultUser = {
     id: defaultId,
-    name: 'default_user',
     email: 'default@email.com',
     password: '123456'
   }
@@ -20,7 +19,6 @@ describe('/users', () => {
   const expectedUser = {
     __v: 0,
     _id: defaultId,
-    name: 'default_user',
     email: 'default@email.com'
   }
 
@@ -44,7 +42,6 @@ describe('/users', () => {
     const payload = JSON.parse(res.payload).data[0]
 
     expect(res.statusCode).toEqual(200)
-    expect(payload.name).toEqual(expectedUser.name)
     expect(payload.email).toEqual(expectedUser.email)
     done()
   })
@@ -61,7 +58,6 @@ describe('/users', () => {
     const payload = JSON.parse(res.payload).data
 
     expect(res.statusCode).toEqual(200)
-    expect(payload.name).toEqual(expectedUser.name)
     expect(payload.email).toEqual(expectedUser.email)
     done()
   })
@@ -72,7 +68,6 @@ describe('/users', () => {
         method: 'POST',
         url: '/users',
         payload: {
-          name: 'new_user',
           email: 'newuser@gmail.com',
           password: '3334455'
         },
@@ -85,7 +80,6 @@ describe('/users', () => {
 
       const result = JSON.parse(res.payload)
 
-      expect(result.data.name).toEqual('new_user')
       expect(result.data.email).toEqual('newuser@gmail.com')
 
       done()
@@ -96,7 +90,6 @@ describe('/users', () => {
         method: 'POST',
         url: '/users',
         payload: {
-          name: 'new_user',
           email: 'default@email.com',
           password: '3334455'
         },
@@ -119,7 +112,6 @@ describe('/users', () => {
         method: 'PUT',
         url: `/users/${defaultId}`,
         payload: {
-          name: 'updated_user',
           email: 'updated_user@gmail.com',
           password: '32134543'
         },
@@ -132,14 +124,12 @@ describe('/users', () => {
 
       expect(res.statusCode).toBe(200)
       expect(result.data.id).toBe(defaultId)
-      expect(result.data.name).toBe('updated_user')
       expect(result.data.email).toBe('updated_user@gmail.com')
       done()
     })
 
     it('Should returns 422 status code when the email informed is already in use', async done => {
       const newUser = {
-        name: 'default_user',
         email: 'updated_user@gmail.com',
         password: '123456'
       }
@@ -151,7 +141,6 @@ describe('/users', () => {
         method: 'PUT',
         url: `/users/${defaultId}`,
         payload: {
-          name: 'updated_user',
           email: 'updated_user@gmail.com',
           password: '32134543'
         },

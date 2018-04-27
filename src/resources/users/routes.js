@@ -44,7 +44,6 @@ const create = {
     validate: {
       headers,
       payload: Joi.object({
-        name: Joi.string().required(),
         email: Joi.string().email().required(),
         password: Joi.string().required()
       })
@@ -65,7 +64,6 @@ const update = {
         id: Joi.string().required()
       },
       payload: Joi.object({
-        name: Joi.string().required(),
         email: Joi.string().email().required(),
         password: Joi.string().required()
       })
