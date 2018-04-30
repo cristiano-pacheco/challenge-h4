@@ -13,7 +13,7 @@ const list = {
     description: 'List all the users',
     tags: ['api'],
     validate: {
-      authHeader
+      headers: authHeader
     }
   }
 }
@@ -26,7 +26,7 @@ const findOne = {
     description: 'Get a user',
     tags: ['api'],
     validate: {
-      authHeader,
+      headers: authHeader,
       params: {
         id: Joi.string().required()
       }
@@ -42,7 +42,7 @@ const create = {
     description: 'Creates an user',
     tags: ['api'],
     validate: {
-      authHeader,
+      headers: authHeader,
       payload: Joi.object({
         email: Joi.string().email().required(),
         password: Joi.string().required()
@@ -59,7 +59,7 @@ const update = {
     description: 'Updates a user',
     tags: ['api'],
     validate: {
-      authHeader,
+      headers: authHeader,
       params: {
         id: Joi.string().required()
       },
@@ -79,7 +79,7 @@ const remove = {
     description: 'Delete a user',
     tags: ['api'],
     validate: {
-      authHeader,
+      headers: authHeader,
       params: {
         id: Joi.string().required()
       }
