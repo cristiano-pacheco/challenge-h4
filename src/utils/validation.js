@@ -2,10 +2,10 @@
 
 const Joi = require('joi')
 
-const headers = Joi.object({
+const authHeader = Joi.object({
   authorization: Joi.string().required()
 }).unknown()
 
 module.exports = {
-  headers
+  authHeader
 }
