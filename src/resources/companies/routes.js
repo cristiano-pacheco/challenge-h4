@@ -11,7 +11,6 @@ const list = {
   method: 'GET',
   handler: (req, h) => CompanyHandler.list(req, h),
   config: {
-    auth: false,
     description: 'List all the companies',
     tags: ['api'],
     validate: {
@@ -41,7 +40,6 @@ const create = {
   method: 'POST',
   handler: (req, h) => CompanyHandler.create(req, h),
   config: {
-    auth: false,
     description: 'Creates a company',
     tags: ['api'],
     validate: {
