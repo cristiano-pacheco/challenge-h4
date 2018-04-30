@@ -1,5 +1,7 @@
 'use strict'
 
+const Boom = require('boom')
+
 class BaseHandler {
   constructor (repository) {
     this.repository = repository
@@ -18,6 +20,9 @@ class BaseHandler {
   async findOne (req, h) {
     try {
       const result = await this.repository.findOne(req.params.id)
+      if (!result) {
+        return Boom.notFound('Resource not found.')
+      }
       return { data: result }
     } catch (error) {
       console.log(error)
@@ -37,8 +42,14 @@ class BaseHandler {
 
   async update (req, h) {
     try {
+      const { id } = req.params
+
+      if (!Boolean((await this.repository.findById(id).count()))) {
+        return Boom.notFound('Resource not found.')
+      }
+
       await this.repository.update(req.params.id, req.payload)
-      return { data: { id: req.params.id, ...req.payload } }
+      return { data: { id, ...req.payload } }
     } catch (error) {
       console.log(error)
       throw error
@@ -47,7 +58,13 @@ class BaseHandler {
 
   async remove (req, h) {
     try {
-      await this.repository.remove(req.params.id)
+      const { id } = req.params
+
+      if (!Boolean((await this.repository.findById(id).count()))) {
+        return Boom.notFound('Resource not found.')
+      }
+
+      await this.repository.remove(id)
       return h.response().code(204)
     } catch (error) {
       console.log(error)

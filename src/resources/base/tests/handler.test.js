@@ -64,7 +64,10 @@ describe('BaseHandler', () => {
       }
     }
     const fakeRepository = {
-      update: jest.fn().mockReturnValue({ ok: true })
+      update: jest.fn().mockReturnValue({ ok: true }),
+      findById: id => ({
+        count: jest.fn().mockReturnValue(true),
+      })
     }
 
     const response = await new BaseHandler(fakeRepository).update(request)
@@ -86,7 +89,10 @@ describe('BaseHandler', () => {
       }))
     }
     const fakeRepository = {
-      remove: jest.fn()
+      remove: jest.fn(),
+      findById: id => ({
+        count: jest.fn().mockReturnValue(true),
+      })
     }
 
     const response = await new BaseHandler(fakeRepository).remove(request, h)
@@ -94,5 +100,77 @@ describe('BaseHandler', () => {
     expect(fakeRepository.remove).toHaveBeenCalledTimes(1)
     expect(response.statusCode).toEqual(204)
     done()
+  })
+
+  describe('Bad Path', () => {
+    it('findOne should return the 404 http status code when the resource is not found', async done => {
+      const request = {
+        params: {
+          id: 'fake_id'
+        }
+      }
+      const mockData = { name: 'fake_name' }
+      const fakeRepository = {
+        findOne: jest.fn().mockReturnValue(null)
+      }
+
+      const response = await new BaseHandler(fakeRepository).findOne(request, null)
+
+      expect(fakeRepository.findOne).toHaveBeenCalledTimes(1)
+      expect(fakeRepository.findOne).toHaveBeenCalledWith('fake_id')
+      expect(response.isBoom).toBe(true)
+      expect(response.output.statusCode).toBe(404)
+      expect(response.output.payload.message).toBe('Resource not found.')
+      done()
+    })
+
+    it('update should return the 404 http status code when the resource is not found', async done => {
+      const payload = { name: 'fake_name' }
+      const request = {
+        payload,
+        params: {
+          id: 'fake_id'
+        }
+      }
+      const fakeRepository = {
+        update: jest.fn().mockReturnValue({ ok: true }),
+        findById: id => ({
+          count: jest.fn().mockReturnValue(null),
+        })
+      }
+
+      const response = await new BaseHandler(fakeRepository).update(request)
+
+      expect(response.isBoom).toBe(true)
+      expect(response.output.statusCode).toBe(404)
+      expect(response.output.payload.message).toBe('Resource not found.')
+      done()
+    })
+
+    it('remove should return the 404 http status code when the resource is not found', async done => {
+      const request = {
+        params: {
+          id: 'fake_id'
+        }
+      }
+      const h = {
+        response: jest.fn().mockReturnValue(({
+          code: statusCode => ({ statusCode })
+        }))
+      }
+      const fakeRepository = {
+        remove: jest.fn(),
+        findById: id => ({
+          count: jest.fn().mockReturnValue(null),
+        })
+      }
+
+      const response = await new BaseHandler(fakeRepository).remove(request, h)
+
+      expect(response.isBoom).toBe(true)
+      expect(response.output.statusCode).toBe(404)
+      expect(response.output.payload.message).toBe('Resource not found.')
+      done()
+    })
   })
 })
