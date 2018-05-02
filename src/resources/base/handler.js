@@ -44,7 +44,7 @@ class BaseHandler {
     try {
       const { id } = req.params
 
-      if (!Boolean((await this.repository.findById(id).count()))) {
+      if (!Boolean((await this.repository.findOne(id).count()))) {
         return Boom.notFound('Resource not found.')
       }
 
@@ -60,7 +60,7 @@ class BaseHandler {
     try {
       const { id } = req.params
 
-      if (!Boolean((await this.repository.findById(id).count()))) {
+      if (!Boolean((await this.repository.findOne(id).count()))) {
         return Boom.notFound('Resource not found.')
       }
 
