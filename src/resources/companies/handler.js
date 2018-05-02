@@ -38,6 +38,10 @@ class CompanyHandler extends BaseHandler {
       const { payload } = req
       const { id } = req.params
 
+      if (!(await this.repository.findOne(id).count())) {
+        return Boom.notFound('Resource not found.')
+      }
+
       if (!cnpj.isValid(payload.cnpj)) {
         return Boom.badData('Cnpj is invalid')
       }

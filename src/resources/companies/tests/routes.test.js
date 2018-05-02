@@ -67,25 +67,40 @@ describe('/companies', () => {
     done()
   })
 
-  it('GET /compaines/:id - Get a company', async done => {
-    const res = await server.inject({
-      method: 'GET',
-      url: `/companies/${defaultId}`,
-      headers: {
-        Authorization: token
-      }
+  describe('GET /compaines/:id', () => {
+    it('should get a company', async done => {
+      const res = await server.inject({
+        method: 'GET',
+        url: `/companies/${defaultId}`,
+        headers: {
+          Authorization: token
+        }
+      })
+
+      const payload = JSON.parse(res.payload).data
+
+      expect(res.statusCode).toEqual(200)
+      expect(payload.name).toEqual(defaultCompany.name)
+      expect(payload.cnpj).toEqual(defaultCompany.cnpj)
+      expect(payload.employees[0].name).toEqual(defaultCompany.employees[0].name)
+      expect(getDate(payload.employees[0].birthDate)).toEqual(defaultCompany.employees[0].birthDate)
+      expect(payload.employees[0].position).toEqual(defaultCompany.employees[0].position)
+      expect(payload.employees[0].user).toEqual(userId)
+      done()
     })
 
-    const payload = JSON.parse(res.payload).data
+    it('should receive the 404 http status code when a company is not found', async done => {
+      const res = await server.inject({
+        method: 'GET',
+        url: `/companies/5ae7099c8f3d79034a709c0c`,
+        headers: {
+          Authorization: token
+        }
+      })
 
-    expect(res.statusCode).toEqual(200)
-    expect(payload.name).toEqual(defaultCompany.name)
-    expect(payload.cnpj).toEqual(defaultCompany.cnpj)
-    expect(payload.employees[0].name).toEqual(defaultCompany.employees[0].name)
-    expect(getDate(payload.employees[0].birthDate)).toEqual(defaultCompany.employees[0].birthDate)
-    expect(payload.employees[0].position).toEqual(defaultCompany.employees[0].position)
-    expect(payload.employees[0].user).toEqual(userId)
-    done()
+      expect(res.statusCode).toEqual(404)
+      done()
+    })
   })
 
   describe('POST /companies', () => {
@@ -278,17 +293,55 @@ describe('/companies', () => {
       expect(result.message).toBe('Cnpj is invalid')
       done()
     })
+
+    it('should receive the 404 http status code when a company is not found', async done => {
+
+      const newCompany = {
+        name: 'new company',
+        cnpj: '73.264.224/0001-84'
+      }
+
+      const res = await server.inject({
+        method: 'PUT',
+        url: `/companies/5ae7099c8f3d79034a709c0c`,
+        payload: newCompany,
+        headers: {
+          Authorization: token
+        }
+      })
+
+      expect(res.statusCode).toEqual(404)
+      done()
+    })
   })
 
-  it('DELETE /companies/:id - Delete a company', async done => {
-    const res = await server.inject({
-      method: 'DELETE',
-      url: `/companies/${defaultId}`,
-      headers: {
-        Authorization: token
-      }
+  describe('DELETE /companies/:id', () => {
+    it('Should delete a company', async done => {
+      const res = await server.inject({
+        method: 'DELETE',
+        url: `/companies/${defaultId}`,
+        headers: {
+          Authorization: token
+        }
+      })
+      expect(res.statusCode).toBe(204)
+      done()
     })
-    expect(res.statusCode).toBe(204)
-    done()
+
+    it('should receive the 404 http status code when a company is not found', async done => {
+
+      const res = await server.inject({
+        method: 'DELETE',
+        url: `/companies/5ae7099c8f3d79034a709c0c`,
+        headers: {
+          Authorization: token
+        }
+      })
+
+      expect(res.statusCode).toEqual(404)
+      done()
+    })
   })
+
+
 })
