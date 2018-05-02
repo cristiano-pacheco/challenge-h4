@@ -41,6 +41,10 @@ class UserHandler extends BaseHandler {
       let { payload } = req
       const { id } = req.params
 
+      if (!(await this.repository.findOne(id).count())) {
+        return Boom.notFound('Resource not found.')
+      }
+
       const emailInUse = await this.repository.emailInUse(payload.email, id)
 
       if (emailInUse) {

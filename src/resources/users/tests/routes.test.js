@@ -46,24 +46,39 @@ describe('/users', () => {
     done()
   })
 
-  it('GET /users/:id - Get a user', async done => {
-    const res = await server.inject({
-      method: 'GET',
-      url: `/users/${defaultId}`,
-      headers: {
-        Authorization: token
-      }
+  describe('GET /users/:id', () => {
+    it('should update an user', async done => {
+      const res = await server.inject({
+        method: 'GET',
+        url: `/users/${defaultId}`,
+        headers: {
+          Authorization: token
+        }
+      })
+
+      const payload = JSON.parse(res.payload).data
+
+      expect(res.statusCode).toEqual(200)
+      expect(payload.email).toEqual(expectedUser.email)
+      done()
     })
 
-    const payload = JSON.parse(res.payload).data
+    it('should receive the 404 http status code when an user is not found', async done => {
+      const res = await server.inject({
+        method: 'GET',
+        url: `/users/5ae7099c8f3d79034a709c0c`,
+        headers: {
+          Authorization: token
+        }
+      })
 
-    expect(res.statusCode).toEqual(200)
-    expect(payload.email).toEqual(expectedUser.email)
-    done()
+      expect(res.statusCode).toEqual(404)
+      done()
+    })
   })
 
   describe('POST /users', () => {
-    it('Create a user', async done => {
+    it('Create an user', async done => {
       const res = await server.inject({
         method: 'POST',
         url: '/users',
@@ -107,7 +122,7 @@ describe('/users', () => {
   })
 
   describe('PUT /users/:id', () => {
-    it('Update a user', async done => {
+    it('update an user', async done => {
       const res = await server.inject({
         method: 'PUT',
         url: `/users/${defaultId}`,
@@ -155,17 +170,51 @@ describe('/users', () => {
       expect(result.message).toBe('Email is already in use')
       done()
     })
+
+    it('should receive the 404 http status code when an user is not found', async done => {
+      const res = await server.inject({
+        method: 'GET',
+        url: `/users/5ae7099c8f3d79034a709c0c`,
+        payload: {
+          email: 'updated_user@gmail.com',
+          password: '32134543'
+        },
+        headers: {
+          Authorization: token
+        }
+      })
+
+      expect(res.statusCode).toEqual(404)
+      done()
+    })
   })
 
-  it('DELETE /users/:id - Delete a user', async done => {
-    const res = await server.inject({
-      method: 'DELETE',
-      url: `/users/${defaultId}`,
-      headers: {
-        Authorization: token
-      }
+  describe('DELETE /users/:id', () => {
+    it('Should delete an user', async done => {
+      const res = await server.inject({
+        method: 'DELETE',
+        url: `/users/${defaultId}`,
+        headers: {
+          Authorization: token
+        }
+      })
+      expect(res.statusCode).toBe(204)
+      done()
     })
-    expect(res.statusCode).toBe(204)
-    done()
+
+    it('should receive the 404 http status code when an user is not found', async done => {
+
+      const res = await server.inject({
+        method: 'DELETE',
+        url: `/users/5ae7099c8f3d79034a709c0c`,
+        headers: {
+          Authorization: token
+        }
+      })
+
+      expect(res.statusCode).toEqual(404)
+      done()
+    })
   })
+
 })
