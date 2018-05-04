@@ -49,8 +49,10 @@ const create = {
         cnpj: Joi.string().required(),
         employees: Joi.array().items(Joi.object({
           name: Joi.string().required(),
+          age: Joi.string().required(),
           birthDate: Joi.date().required(),
-          position: Joi.string().valid(positionEnum).required()
+          position: Joi.string().valid(positionEnum).required(),
+          user: Joi.string().required()
         }))
       })
     }
@@ -74,8 +76,10 @@ const update = {
         cnpj: Joi.string().required(),
         employees: Joi.array().items(Joi.object({
           name: Joi.string().required(),
+          age: Joi.string().required(),
           birthDate: Joi.date().required(),
-          position: Joi.string().valid(positionEnum).required()
+          position: Joi.string().valid(positionEnum).required(),
+          user: Joi.string().required()
         }))
       })
     }

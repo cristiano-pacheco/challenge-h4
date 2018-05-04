@@ -20,6 +20,10 @@ const companySchema = new Schema({
       type: String,
       required: true
     },
+    age: {
+      type: Number,
+      required: true
+    },
     birthDate: {
       type: Date,
       required: true
@@ -31,14 +35,19 @@ const companySchema = new Schema({
     },
     user: {
       type: mongoose.Schema.ObjectId,
-      ref: 'User'
+      ref: 'User',
+      required: true
     }
   }]
 })
 
-companySchema.virtual('age').get(function () {
-  const age = moment(new Date()).diff(this.birthDate, 'years')
-  return age
-})
+function autopopulate(next) {
+  this.populate('employees.user')
+  next()
+}
+
+companySchema.pre('find', autopopulate)
+companySchema.pre('findOne', autopopulate)
+companySchema.pre('findById', autopopulate)
 
 module.exports = mongoose.model('Company', companySchema)

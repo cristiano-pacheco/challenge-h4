@@ -26,9 +26,10 @@ describe('/companies', () => {
     employees: [
       {
         name: 'Chris',
+        age: 31,
         birthDate: '1986-05-29',
         position: 'DEVELOPER',
-        user: '5ae7099c8f3d79034a709c0c'
+        user: userId,
       }
     ]
   }
@@ -60,10 +61,14 @@ describe('/companies', () => {
     expect(res.statusCode).toEqual(200)
     expect(payload.name).toEqual(defaultCompany.name)
     expect(payload.cnpj).toEqual(defaultCompany.cnpj)
+
     expect(payload.employees[0].name).toEqual(defaultCompany.employees[0].name)
+    expect(payload.employees[0].age).toEqual(defaultCompany.employees[0].age)
     expect(getDate(payload.employees[0].birthDate)).toEqual(defaultCompany.employees[0].birthDate)
     expect(payload.employees[0].position).toEqual(defaultCompany.employees[0].position)
-    expect(payload.employees[0].user).toEqual(userId)
+
+    expect(payload.employees[0].user._id).toEqual(userId)
+    expect(payload.employees[0].user.email).toEqual(defaultUser.email)
     done()
   })
 
@@ -80,12 +85,17 @@ describe('/companies', () => {
       const payload = JSON.parse(res.payload).data
 
       expect(res.statusCode).toEqual(200)
+
       expect(payload.name).toEqual(defaultCompany.name)
       expect(payload.cnpj).toEqual(defaultCompany.cnpj)
+
       expect(payload.employees[0].name).toEqual(defaultCompany.employees[0].name)
+      expect(payload.employees[0].age).toEqual(defaultCompany.employees[0].age)
       expect(getDate(payload.employees[0].birthDate)).toEqual(defaultCompany.employees[0].birthDate)
       expect(payload.employees[0].position).toEqual(defaultCompany.employees[0].position)
-      expect(payload.employees[0].user).toEqual(userId)
+
+      expect(payload.employees[0].user._id).toEqual(userId)
+      expect(payload.employees[0].user.email).toEqual(defaultUser.email)
       done()
     })
 
@@ -111,8 +121,10 @@ describe('/companies', () => {
         employees: [
           {
             name: 'Icarus',
+            age: '5',
             birthDate: '2013-02-11',
-            position: 'DIRECTOR'
+            position: 'DIRECTOR',
+            user: userId
           }
         ]
       }
@@ -131,9 +143,12 @@ describe('/companies', () => {
 
       expect(result.name).toEqual(payload.name)
       expect(result.cnpj).toEqual(payload.cnpj)
+
       expect(result.employees[0].name).toEqual(payload.employees[0].name)
+      expect(result.employees[0].age).toEqual(5)
       expect(getDate(result.employees[0].birthDate)).toEqual(payload.employees[0].birthDate)
       expect(result.employees[0].position).toEqual(payload.employees[0].position)
+      expect(result.employees[0].user).toEqual(userId)
 
       done()
     })
@@ -145,8 +160,10 @@ describe('/companies', () => {
         employees: [
           {
             name: 'Icarus',
+            age: '5',
             birthDate: '2013-02-11',
-            position: 'DIRECTOR'
+            position: 'DIRECTOR',
+            user: userId
           }
         ]
       }
@@ -173,8 +190,10 @@ describe('/companies', () => {
         employees: [
           {
             name: 'Icarus',
+            age: '5',
             birthDate: '2013-02-11',
-            position: 'DIRECTOR'
+            position: 'DIRECTOR',
+            user: userId
           }
         ]
       }
@@ -197,14 +216,26 @@ describe('/companies', () => {
 
   describe('PUT /companies/:id', () => {
     it('Update a company', async done => {
+      const newUserId = '5aeaf35e5fb046391659c015'
+      const newUserData = {
+        email: 'newuser@email.com',
+        password: '123456'
+      }
+      const newUser = new User(newUserData)
+      newUser._id = newUserId
+      await newUser.save()
+
+
       const payload = {
         name: 'new company',
-        cnpj: '73.264.224/0001-84',
+        cnpj: '78.023.114/0001-44',
         employees: [
           {
             name: 'Icarus',
+            age: '5',
             birthDate: '2013-02-11',
-            position: 'DIRECTOR'
+            position: 'DIRECTOR',
+            user: newUserId
           }
         ]
       }
@@ -224,9 +255,14 @@ describe('/companies', () => {
 
       expect(company.name).toEqual(payload.name)
       expect(company.cnpj).toEqual(payload.cnpj)
+
+      expect(company.employees[0].name).toEqual(payload.employees[0].name)
+      expect(company.employees[0].age).toEqual(Number(payload.employees[0].age))
       expect(company.employees[0].birthDate).toEqual(new Date(payload.employees[0].birthDate))
       expect(company.employees[0].position).toEqual(payload.employees[0].position)
 
+      expect(JSON.stringify(company.employees[0].user._id)).toEqual(JSON.stringify(newUserId))
+      expect(company.employees[0].user.email).toEqual(newUserData.email)
       done()
     })
 
@@ -237,8 +273,10 @@ describe('/companies', () => {
         employees: [
           {
             name: 'Icarus',
+            age: '5',
             birthDate: '2013-02-11',
-            position: 'DIRECTOR'
+            position: 'DIRECTOR',
+            user: userId
           }
         ]
       }
@@ -269,8 +307,10 @@ describe('/companies', () => {
         employees: [
           {
             name: 'Icarus',
+            age: '5',
             birthDate: '2013-02-11',
-            position: 'DIRECTOR'
+            position: 'DIRECTOR',
+            user: userId
           }
         ]
       }
@@ -342,6 +382,4 @@ describe('/companies', () => {
       done()
     })
   })
-
-
 })
