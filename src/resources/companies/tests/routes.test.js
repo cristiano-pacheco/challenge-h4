@@ -29,7 +29,7 @@ describe('/companies', () => {
         age: 31,
         birthDate: '1986-05-29',
         position: 'DEVELOPER',
-        user: userId,
+        user: userId
       }
     ]
   }
@@ -225,7 +225,6 @@ describe('/companies', () => {
       newUser._id = newUserId
       await newUser.save()
 
-
       const payload = {
         name: 'new company',
         cnpj: '78.023.114/0001-44',
@@ -335,7 +334,6 @@ describe('/companies', () => {
     })
 
     it('should receive the 404 http status code when a company is not found', async done => {
-
       const newCompany = {
         name: 'new company',
         cnpj: '73.264.224/0001-84'
@@ -369,7 +367,6 @@ describe('/companies', () => {
     })
 
     it('should receive the 404 http status code when a company is not found', async done => {
-
       const res = await server.inject({
         method: 'DELETE',
         url: `/companies/5ae7099c8f3d79034a709c0c`,

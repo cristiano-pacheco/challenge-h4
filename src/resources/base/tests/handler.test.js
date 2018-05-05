@@ -66,7 +66,7 @@ describe('BaseHandler', () => {
     const fakeRepository = {
       update: jest.fn().mockReturnValue({ ok: true }),
       findOne: id => ({
-        count: jest.fn().mockReturnValue(true),
+        count: jest.fn().mockReturnValue(true)
       })
     }
 
@@ -91,7 +91,7 @@ describe('BaseHandler', () => {
     const fakeRepository = {
       remove: jest.fn(),
       findOne: id => ({
-        count: jest.fn().mockReturnValue(true),
+        count: jest.fn().mockReturnValue(true)
       })
     }
 
@@ -109,7 +109,7 @@ describe('BaseHandler', () => {
           id: 'fake_id'
         }
       }
-      const mockData = { name: 'fake_name' }
+
       const fakeRepository = {
         findOne: jest.fn().mockReturnValue(null)
       }
@@ -135,7 +135,7 @@ describe('BaseHandler', () => {
       const fakeRepository = {
         update: jest.fn().mockReturnValue({ ok: true }),
         findOne: id => ({
-          count: jest.fn().mockReturnValue(null),
+          count: jest.fn().mockReturnValue(null)
         })
       }
 
@@ -161,7 +161,7 @@ describe('BaseHandler', () => {
       const fakeRepository = {
         remove: jest.fn(),
         findOne: id => ({
-          count: jest.fn().mockReturnValue(null),
+          count: jest.fn().mockReturnValue(null)
         })
       }
 

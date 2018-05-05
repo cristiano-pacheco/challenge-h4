@@ -2,7 +2,6 @@
 
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const moment = require('moment')
 const positionEnum = require('./position-enum')
 
 const companySchema = new Schema({
@@ -41,7 +40,7 @@ const companySchema = new Schema({
   }]
 })
 
-function autopopulate(next) {
+function autopopulate (next) {
   this.populate('employees.user')
   next()
 }

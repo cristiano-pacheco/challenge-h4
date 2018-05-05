@@ -203,7 +203,6 @@ describe('/users', () => {
     })
 
     it('should receive the 404 http status code when an user is not found', async done => {
-
       const res = await server.inject({
         method: 'DELETE',
         url: `/users/5ae7099c8f3d79034a709c0c`,
@@ -216,5 +215,4 @@ describe('/users', () => {
       done()
     })
   })
-
 })
