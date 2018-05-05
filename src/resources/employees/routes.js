@@ -11,7 +11,6 @@ const list = {
   method: 'GET',
   handler: (req, h) => EmployeeHandler.list(req, h),
   config: {
-    auth: false,
     description: 'List all the employees of the company',
     tags: ['api'],
     validate: {
