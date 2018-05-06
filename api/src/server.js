@@ -9,7 +9,8 @@ require('./utils/connection')
 
 const server = new Hapi.Server({
   host: 'localhost',
-  port: process.env.APP_PORT || 3000
+  port: process.env.APP_PORT || 3000,
+  routes: { cors: true }
 })
 
 async function registerPlugins () {
