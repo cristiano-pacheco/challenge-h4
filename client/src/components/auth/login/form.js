@@ -23,7 +23,7 @@ const LoginForm = ({
         <Header as='h2' color='teal' textAlign='center'>
           Log-in to your account
         </Header>
-        <Form className='attached segment fluid' size='large' loading={isLoading}>
+        <Form className='attached segment fluid' size='large' loading={isLoading} autocomplete='off'>
           <Form.Input
             fluid
             name='email'

@@ -48,6 +48,10 @@ class Login extends Component {
         if (error.status === 401) {
           this.setState({ errors: ['Invalid credentials'] })
         }
+
+        if (error.status === 404) {
+          this.setState({ errors: ['Could not connect to server'] })
+        }
       })
   }
 
