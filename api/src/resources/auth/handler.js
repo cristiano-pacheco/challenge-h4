@@ -17,7 +17,7 @@ const AuthHandler = {
     }
 
     if (Bcrypt.compareSync(password, user.password)) {
-      const token = Jwt.sign({ _id: user._id }, process.env.JWT_KEY, { expiresIn: '30M' })
+      const token = Jwt.sign({ _id: user._id }, process.env.JWT_KEY, { expiresIn: '60M' })
       return { token }
     }
 

@@ -21,7 +21,7 @@ export default http => {
       return window.location = '/auth/login'
     }
 
-    if (error.response.status === 403) {
+    if (error.response.status === 401) {
       // return swal('Atenção', 'The user session has expired, please log in again.', 'error')
       //   .then(() => {
       //     logout()

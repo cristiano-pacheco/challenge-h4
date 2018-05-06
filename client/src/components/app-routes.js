@@ -5,11 +5,13 @@ import Home from './home'
 import Login from './auth/login'
 import NotFound from './not-found'
 import PrivateRoute from './common/private-route'
+import UserList from './user/list'
 
 const AppRoutes = () => (
   <Switch>
     <PrivateRoute exact path='/' component={Home} />
     <Route path='/auth/login' component={Login} />
+    <PrivateRoute path='/users' component={UserList} />
     <PrivateRoute component={NotFound} />
   </Switch>
 )
