@@ -7,13 +7,15 @@ import Logout from './auth/logout'
 import NotFound from './not-found'
 import PrivateRoute from './common/private-route'
 import UserList from './user/list'
+import UserForm from './user/form'
 
 const AppRoutes = () => (
   <Switch>
     <PrivateRoute exact path='/' component={Home} />
     <Route path='/auth/login' component={Login} />
     <Route path='/auth/logout' component={Logout} />
-    <PrivateRoute path='/users' component={UserList} />
+    <PrivateRoute exact path='/users' component={UserList} />
+    <PrivateRoute path='/users/add' component={UserForm} />
     <PrivateRoute component={NotFound} />
   </Switch>
 )
