@@ -13,6 +13,10 @@ class UserList extends Component {
   }
 
   componentDidMount () {
+    this.fetchUsers()
+  }
+
+  fetchUsers = () => {
     this.setState({ isLoading: true })
     UserAPI.getAll()
       .then(response => {
@@ -24,8 +28,14 @@ class UserList extends Component {
       })
   }
 
-  handleRemove = () => {
-
+  handleRemove = id => {
+    this.setState({ isLoading: true })
+    UserAPI.remove(id)
+      .then(response => this.fetchUsers())
+      .catch(error => {
+        console.log(error)
+        this.setState({ isLoading: false })
+      })
   }
 
   render () {

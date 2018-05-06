@@ -32,7 +32,7 @@ const UserGrid = ({ isLoading, users, handleRemove }) => (
                   size='large'
                   name='trash'
                   className='btn-pointer'
-                  onClick={() => handleRemove(item.id)}
+                  onClick={() => handleRemove(item._id)}
                   style={{ cursor: 'pointer' }}
                 />
               </Table.Cell>
