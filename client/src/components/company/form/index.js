@@ -1,26 +1,26 @@
 import React, { PureComponent } from 'react'
 
-import UserForm from './form'
-import * as UserAPI from '../../../api/user'
-import ValidateForm from '../../auth/login/validator'
+import CompanyForm from './form'
+import * as CompanyAPI from '../../../api/company'
+import ValidateForm from './validator'
 
 const initialState = {
   id: null,
   isLoading: false,
-  email: '',
-  password: '',
+  name: '',
+  cnpj: '',
   successMessage: '',
   errors: []
 }
 
 function getPayload (data) {
   return {
-    email: data.email,
-    password: data.password
+    name: data.name,
+    cnpj: data.cnpj
   }
 }
 
-class UserFormContainer extends PureComponent {
+class CompanyFormContainer extends PureComponent {
   constructor () {
     super()
     this.state = initialState
@@ -30,18 +30,19 @@ class UserFormContainer extends PureComponent {
     const { id } = this.props.match.params
     if (id) {
       this.setState({ isLoading: true, id })
-      UserAPI.get(id)
+      CompanyAPI.get(id)
         .then(response => {
           const { data } = response.data
           this.setState({
-            email: data.email,
+            name: data.name,
+            cnpj: data.cnpj,
             isLoading: false
           })
         })
         .catch(error => {
           if (error.response.status === 404) {
             this.setState({
-              errorMessages: ['User not found.'],
+              errorMessages: ['Company not found.'],
               isLoading: false
             })
             return
@@ -74,11 +75,11 @@ class UserFormContainer extends PureComponent {
   }
 
   create = () => {
-    UserAPI.create(getPayload(this.state))
+    CompanyAPI.create(getPayload(this.state))
       .then(response => {
         this.setState({
           ...initialState,
-          successMessage: 'User successfully registered'
+          successMessage: 'Company successfully registered'
         })
       })
       .catch(error => {
@@ -93,11 +94,11 @@ class UserFormContainer extends PureComponent {
   }
 
   update = () => {
-    UserAPI.update(this.state.id, getPayload(this.state))
+    CompanyAPI.update(this.state.id, getPayload(this.state))
       .then(response => {
         this.setState({
           isLoading: false,
-          successMessage: 'User successfully updated.'
+          successMessage: 'Company successfully updated.'
         })
       })
       .catch(error => {
@@ -125,7 +126,7 @@ class UserFormContainer extends PureComponent {
 
   render () {
     return (
-      <UserForm
+      <CompanyForm
         {...this.state}
         handleInputChange={this.handleInputChange}
         handleSubmit={this.handleSubmit}
@@ -134,4 +135,4 @@ class UserFormContainer extends PureComponent {
   }
 }
 
-export default UserFormContainer
+export default CompanyFormContainer

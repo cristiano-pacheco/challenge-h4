@@ -14,8 +14,13 @@ const NavBar = ({ isAuthenticated }) => (
           <Image size='mini'src={logo} style={{ width: '150px' }} />
         </Menu.Item>
         <If test={isAuthenticated}>
+
           <Menu.Item as={Link} to='/users'>
             <Icon name='users' /> Users
+          </Menu.Item>
+
+          <Menu.Item as={Link} to='/companies'>
+            <Icon name='building' /> Companies
           </Menu.Item>
 
           <Menu.Item name='sign out' position='right' as={Link} to='/auth/logout'>
