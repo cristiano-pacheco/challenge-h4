@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import LoginForm from './form'
 import ValidateForm from './validator'
 import * as AuthAPI from '../../../api/auth'
+import { setAuth } from '../../../redux-flow/reducers/auth/action-creators'
+import { setToken } from '../../../services/auth/index'
 
 class Login extends Component {
   constructor () {
@@ -11,7 +14,7 @@ class Login extends Component {
       email: '',
       password: '',
       isLoading: false,
-      errors: [],
+      errors: []
     }
   }
 
@@ -20,18 +23,31 @@ class Login extends Component {
   }
 
   handleSubmit = () => {
-    if (this.formIsInValid()) return;
+    if (this.formIsInValid()) return
 
     this.setState({ isLoading: true })
 
-    AuthAPI.login(this.state)
+    const payload = {
+      email: this.state.email,
+      password: this.state.password
+    }
+
+    AuthAPI.login(payload)
       .then(response => {
         this.setState({ isLoading: false })
-        console.log(response)
+
+        setToken(response.data.token)
+
+        this.props.setAuth(true)
+
+        this.props.history.push('/')
       })
       .catch(error => {
         this.setState({ isLoading: false })
-        console.log(error.response)
+
+        if (error.status === 401) {
+          this.setState({ errors: ['Invalid credentials'] })
+        }
       })
   }
 
@@ -58,4 +74,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default connect(null, { setAuth })(Login)
