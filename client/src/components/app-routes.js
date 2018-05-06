@@ -16,6 +16,7 @@ const AppRoutes = () => (
     <Route path='/auth/logout' component={Logout} />
     <PrivateRoute exact path='/users' component={UserList} />
     <PrivateRoute path='/users/add' component={UserForm} />
+    <PrivateRoute path='/users/:id/edit' component={UserForm} />
     <PrivateRoute component={NotFound} />
   </Switch>
 )

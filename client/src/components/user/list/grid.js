@@ -23,7 +23,7 @@ const UserGrid = ({ isLoading, users, handleRemove }) => (
           {users.map(item => (
             <Table.Row key={item._id}>
               <Table.Cell>
-                <Link to={`/edit/${item._id}`}>{item.email}</Link>
+                <Link to={`/users/${item._id}/edit`}>{item.email}</Link>
               </Table.Cell>
               <Table.Cell textAlign='center'>
                 <Icon
