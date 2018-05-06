@@ -1,0 +1,41 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "lodash": "^4.17.10",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0",
+    "semantic-ui-css": "^2.3.1",
+    "semantic-ui-react": "^0.79.1",
+    "validator": "^10.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "lint": "standard --parser=babel-eslint --verbose | snazzy",
+    "lint:fix": "standard --parser=babel-eslint --fix",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "deep-freeze": "0.0.1",
+    "prop-types": "^15.6.1",
+    "snazzy": "^7.1.1",
+    "standard": "^11.0.1"
+  },
+  "standard": {
+    "globals": [
+      "localStorage",
+      "it",
+      "describe",
+      "expect"
+    ]
+  }
+}
