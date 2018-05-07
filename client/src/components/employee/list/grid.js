@@ -3,11 +3,18 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Table, Header, Segment, Button, Icon } from 'semantic-ui-react'
 
-const CompanyGrid = ({ isLoading, companies, handleRemove }) => (
+import { getDate } from '../../../utils/helpers'
+
+const EmployeeGrid = ({
+  isLoading,
+  employees,
+  companyId,
+  handleRemove
+}) => (
   <div>
     <Header as='h2' attached='top'>
-      Companies List
-      <Link to='/companies/add'>
+      Employees List
+      <Link to='/employees/add'>
         <Button primary floated='right'>Add</Button>
       </Link>
     </Header>
@@ -16,28 +23,24 @@ const CompanyGrid = ({ isLoading, companies, handleRemove }) => (
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Name</Table.HeaderCell>
-            <Table.HeaderCell>Cnpj</Table.HeaderCell>
-            <Table.HeaderCell textAlign='center'>Total Employees</Table.HeaderCell>
-            <Table.HeaderCell width={2} textAlign='center' />
+            <Table.HeaderCell>Email</Table.HeaderCell>
+            <Table.HeaderCell>Position</Table.HeaderCell>
+            <Table.HeaderCell>Birthdate</Table.HeaderCell>
+            <Table.HeaderCell>Age</Table.HeaderCell>
+            <Table.HeaderCell width={1} textAlign='center' />
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {companies.map(item => (
+          {employees.map(item => (
             <Table.Row key={item._id}>
-              <Table.Cell width={9}>
-                <Link to={`/companies/${item._id}/edit`}>{item.name}</Link>
+              <Table.Cell width={5}>
+                <Link to={`/employees/${item._id}/edit`}>{item.name}</Link>
               </Table.Cell>
-              <Table.Cell width={3}>{item.cnpj}</Table.Cell>
-              <Table.Cell width={2} textAlign='center'>{item.employees.length}</Table.Cell>
+              <Table.Cell width={4}>{item.user.email}</Table.Cell>
+              <Table.Cell width={2}>{item.position}</Table.Cell>
+              <Table.Cell width={2}>{getDate(item.birthDate)}</Table.Cell>
+              <Table.Cell width={2}>{item.age === 1 ? '1 Year' : `${item.age} Years`}</Table.Cell>
               <Table.Cell textAlign='center'>
-                <Link to={`/companies/${item._id}/employees`}>
-                  <Icon
-                    data-js='btn-employees'
-                    color='blue'
-                    name='users'
-                    size='large'
-                  />
-                </Link>
                 <Icon
                   data-js='btn-delete'
                   color='red'
@@ -45,7 +48,7 @@ const CompanyGrid = ({ isLoading, companies, handleRemove }) => (
                   size='large'
                   className='btn-pointer'
                   onClick={() => handleRemove(item._id)}
-                  style={{ cursor: 'pointer', marginLeft: '10px' }}
+                  style={{ cursor: 'pointer' }}
                 />
               </Table.Cell>
             </Table.Row>
@@ -56,10 +59,11 @@ const CompanyGrid = ({ isLoading, companies, handleRemove }) => (
   </div>
 )
 
-CompanyGrid.propTypes = {
+EmployeeGrid.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  companies: PropTypes.array.isRequired,
+  employees: PropTypes.array.isRequired,
+  companyId: PropTypes.string.isRequired,
   handleRemove: PropTypes.func.isRequired
 }
 
-export default CompanyGrid
+export default EmployeeGrid

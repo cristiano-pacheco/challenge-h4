@@ -10,6 +10,7 @@ import UserList from './user/list'
 import UserForm from './user/form'
 import CompanyList from './company/list'
 import CompanyForm from './company/form'
+import EmployeeList from './employee/list'
 
 const AppRoutes = () => (
   <Switch>
@@ -24,6 +25,8 @@ const AppRoutes = () => (
     <PrivateRoute exact path='/companies' component={CompanyList} />
     <PrivateRoute path='/companies/add' component={CompanyForm} />
     <PrivateRoute path='/companies/:id/edit' component={CompanyForm} />
+
+    <PrivateRoute path='/companies/:companyId/employees' component={EmployeeList} />
 
     <PrivateRoute component={NotFound} />
   </Switch>
