@@ -27,6 +27,7 @@ const AppRoutes = () => (
     <PrivateRoute path='/companies/add' component={CompanyForm} />
     <PrivateRoute path='/companies/:id/edit' component={CompanyForm} />
 
+    <PrivateRoute path='/companies/:companyId/employees/:employeeId/edit' component={EmployeeForm} />
     <PrivateRoute path='/companies/:companyId/employees/add' component={EmployeeForm} />
     <PrivateRoute path='/companies/:companyId/employees' component={EmployeeList} />
 

@@ -4,10 +4,10 @@ import EmployeeForm from './form'
 import * as EmployeeAPI from '../../../api/employee'
 import * as UserAPI from '../../../api/user'
 import ValidateForm from './validator'
-import { getAgeFromDate } from '../../../utils/helpers'
+import { getAgeFromDate, getDate } from '../../../utils/helpers'
 
 const initialState = {
-  id: null,
+  employeeId: null,
   isLoading: false,
   users: [],
   userId: '',
@@ -51,11 +51,11 @@ class EmployeeFormContainer extends PureComponent {
           const { data } = response.data
           this.setState({
             name: data.name,
-            user: data.user,
+            user: data.user._id,
             userId: data.user._id,
             position: data.position,
             age: data.age,
-            birthDate: data.birthDate,
+            birthDate: getDate(data.birthDate),
             isLoading: false
           })
         })
@@ -103,8 +103,8 @@ class EmployeeFormContainer extends PureComponent {
 
     if (this.formIsInValid()) return
 
-    if (this.state.id) {
-      this.update()
+    if (this.state.employeeId) {
+      return this.update()
     }
     this.create()
   }
@@ -114,7 +114,8 @@ class EmployeeFormContainer extends PureComponent {
       .then(response => {
         this.setState({
           ...initialState,
-          successMessage: 'Employee successfully registered'
+          successMessage: 'Employee successfully registered',
+          users: this.state.users
         })
       })
       .catch(error => {

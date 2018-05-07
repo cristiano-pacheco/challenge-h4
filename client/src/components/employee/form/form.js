@@ -22,7 +22,9 @@ const positions = [
 
 const EmployeeForm = ({
   users,
+  user,
   name,
+  position,
   birthDate,
   companyId,
   errors,
@@ -51,6 +53,7 @@ const EmployeeForm = ({
           name='user'
           options={users}
           placeholder='Email'
+          value={user}
           onChange={handleSelectChange}
         />
         <Form.Group>
@@ -76,6 +79,7 @@ const EmployeeForm = ({
             width={3}
             options={positions}
             placeholder='Position'
+            value={position}
             onChange={handleSelectChange}
           />
         </Form.Group>
@@ -94,8 +98,10 @@ const EmployeeForm = ({
 )
 
 EmployeeForm.propTypes = {
-  name: PropTypes.string.isRequired,
   users: PropTypes.array.isRequired,
+  user: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  position: PropTypes.string.isRequired,
   birthDate: PropTypes.string.isRequired,
   companyId: PropTypes.string,
   errors: PropTypes.array.isRequired,

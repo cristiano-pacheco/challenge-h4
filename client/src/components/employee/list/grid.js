@@ -34,7 +34,7 @@ const EmployeeGrid = ({
           {employees.map(item => (
             <Table.Row key={item._id}>
               <Table.Cell width={5}>
-                <Link to={`/employees/${item._id}/edit`}>{item.name}</Link>
+                <Link to={`/companies/${companyId}/employees/${item._id}/edit`}>{item.name}</Link>
               </Table.Cell>
               <Table.Cell width={4}>{item.user.email}</Table.Cell>
               <Table.Cell width={2}>{item.position}</Table.Cell>
