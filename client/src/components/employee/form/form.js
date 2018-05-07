@@ -27,6 +27,7 @@ const EmployeeForm = ({
   position,
   birthDate,
   companyId,
+  employeeId,
   errors,
   successMessage,
   handleSubmit,
@@ -55,6 +56,7 @@ const EmployeeForm = ({
           placeholder='Email'
           value={user}
           onChange={handleSelectChange}
+          disabled={!!employeeId}
         />
         <Form.Group>
           <Form.Input
@@ -104,6 +106,7 @@ EmployeeForm.propTypes = {
   position: PropTypes.string.isRequired,
   birthDate: PropTypes.string.isRequired,
   companyId: PropTypes.string,
+  employeeId: PropTypes.string,
   errors: PropTypes.array.isRequired,
   successMessage: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
