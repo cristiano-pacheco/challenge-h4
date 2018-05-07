@@ -1,41 +1,61 @@
 import React, { PureComponent } from 'react'
 
-import CompanyForm from './form'
-import * as CompanyAPI from '../../../api/company'
+import EmployeeForm from './form'
+import * as EmployeeAPI from '../../../api/employee'
+import * as UserAPI from '../../../api/user'
 import ValidateForm from './validator'
+import { getAgeFromDate } from '../../../utils/helpers'
 
 const initialState = {
   id: null,
   isLoading: false,
+  users: [],
+  userId: '',
+  user: '',
   name: '',
-  cnpj: '',
+  position: '',
+  age: '',
+  birthDate: '',
   successMessage: '',
   errors: []
 }
 
 function getPayload (data) {
   return {
+    user: data.user,
     name: data.name,
-    cnpj: data.cnpj
+    position: data.position,
+    birthDate: data.birthDate,
+    age: getAgeFromDate(data.birthDate)
   }
 }
 
-class CompanyFormContainer extends PureComponent {
+class EmployeeFormContainer extends PureComponent {
   constructor () {
     super()
     this.state = initialState
   }
 
   componentDidMount () {
-    const { id } = this.props.match.params
-    if (id) {
-      this.setState({ isLoading: true, id })
-      CompanyAPI.get(id)
+    this.fetchUsers()
+
+    const { companyId, employeeId } = this.props.match.params
+
+    this.setState({ companyId })
+
+    if (employeeId) {
+      this.setState({ isLoading: true, employeeId })
+
+      EmployeeAPI.get(companyId, employeeId)
         .then(response => {
           const { data } = response.data
           this.setState({
             name: data.name,
-            cnpj: data.cnpj,
+            user: data.user,
+            userId: data.user._id,
+            position: data.position,
+            age: data.age,
+            birthDate: data.birthDate,
             isLoading: false
           })
         })
@@ -54,11 +74,27 @@ class CompanyFormContainer extends PureComponent {
     }
   }
 
+  fetchUsers = () => {
+    UserAPI.getAll()
+      .then(response => {
+        const { data } = response.data
+        const users = data.map(item => ({
+          value: item._id,
+          text: item.email
+        }))
+        this.setState({ users })
+      })
+  }
+
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  handleSubmit = () => {
+  handleSelectChange = (e, { name, value }) => {
+    this.setState({ [name]: value })
+  }
+
+  handleSubmit = (e) => {
     this.setState({
       isLoading: true,
       errorMessages: [],
@@ -69,17 +105,16 @@ class CompanyFormContainer extends PureComponent {
 
     if (this.state.id) {
       this.update()
-      return
     }
     this.create()
   }
 
   create = () => {
-    CompanyAPI.create(getPayload(this.state))
+    EmployeeAPI.create(this.state.companyId, getPayload(this.state))
       .then(response => {
         this.setState({
           ...initialState,
-          successMessage: 'Company successfully registered'
+          successMessage: 'Employee successfully registered'
         })
       })
       .catch(error => {
@@ -94,11 +129,15 @@ class CompanyFormContainer extends PureComponent {
   }
 
   update = () => {
-    CompanyAPI.update(this.state.id, getPayload(this.state))
+    EmployeeAPI.update(
+      this.state.companyId,
+      this.state.employeeId,
+      getPayload(this.state)
+    )
       .then(response => {
         this.setState({
           isLoading: false,
-          successMessage: 'Company successfully updated.'
+          successMessage: 'Employee successfully updated.'
         })
       })
       .catch(error => {
@@ -126,13 +165,14 @@ class CompanyFormContainer extends PureComponent {
 
   render () {
     return (
-      <CompanyForm
+      <EmployeeForm
         {...this.state}
         handleInputChange={this.handleInputChange}
         handleSubmit={this.handleSubmit}
+        handleSelectChange={this.handleSelectChange}
       />
     )
   }
 }
 
-export default CompanyFormContainer
+export default EmployeeFormContainer

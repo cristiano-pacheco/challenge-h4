@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import MaskedInput from 'react-text-mask'
+
 import {
   Form,
   Header,
@@ -13,21 +13,29 @@ import {
 import If from '../../common/if'
 import ErrorMessage from '../../common/error-messages'
 import SuccessMessage from '../../common/success-message'
-import { cnpjMask } from '../../../utils/masks'
 
-const CompanyForm = ({
+const positions = [
+  { value: 'DEVELOPER', text: 'DEVELOPER' },
+  { value: 'ANALYST', text: 'ANALYST' },
+  { value: 'DIRECTOR', text: 'DIRECTOR' }
+]
+
+const EmployeeForm = ({
+  users,
   name,
-  cnpj,
+  birthDate,
+  companyId,
   errors,
   successMessage,
   handleSubmit,
   isLoading,
-  handleInputChange
+  handleInputChange,
+  handleSelectChange
 }) => (
   <div>
     <Header as='h2' attached='top'>
-      Company Form
-      <Link to='/companies'>
+      Employee Form
+      <Link to={`/companies/${companyId}/employees`}>
         <Button primary floated='right'>List</Button>
       </Link>
     </Header>
@@ -37,25 +45,40 @@ const CompanyForm = ({
         loading={isLoading}
         autoComplete='off'
       >
-        <Form.Input
-          name='name'
-          label='Name'
-          width={16}
-          onChange={handleInputChange}
-          value={name}
+        <Form.Select
+          fluid
+          label='Email'
+          name='user'
+          options={users}
+          placeholder='Email'
+          onChange={handleSelectChange}
         />
-        <Form.Input
-          label='CNPJ'
-          children={
-            <MaskedInput
-              mask={cnpjMask()}
-              placeholder='00.000.000/0000-00'
-              name='cnpj'
-              onChange={handleInputChange}
-              value={cnpj}
-            />
-          }
-        />
+        <Form.Group>
+          <Form.Input
+            name='name'
+            label='Name'
+            width={10}
+            onChange={handleInputChange}
+            value={name}
+          />
+          <Form.Input
+            label='Birth Date'
+            type='date'
+            name='birthDate'
+            onChange={handleInputChange}
+            value={birthDate}
+          />
+          <Form.Select
+            fluid
+            search
+            label='Position'
+            name='position'
+            width={3}
+            options={positions}
+            placeholder='Position'
+            onChange={handleSelectChange}
+          />
+        </Form.Group>
         <Button type='submit' disabled={isLoading} primary icon>
           <Icon name='save' /> Save
         </Button>
@@ -70,14 +93,17 @@ const CompanyForm = ({
   </div>
 )
 
-CompanyForm.propTypes = {
+EmployeeForm.propTypes = {
   name: PropTypes.string.isRequired,
-  cnpj: PropTypes.string.isRequired,
+  users: PropTypes.array.isRequired,
+  birthDate: PropTypes.string.isRequired,
+  companyId: PropTypes.string,
   errors: PropTypes.array.isRequired,
   successMessage: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  handleInputChange: PropTypes.func.isRequired
+  handleInputChange: PropTypes.func.isRequired,
+  handleSelectChange: PropTypes.func.isRequired
 }
 
-export default CompanyForm
+export default EmployeeForm

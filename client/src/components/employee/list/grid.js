@@ -14,7 +14,7 @@ const EmployeeGrid = ({
   <div>
     <Header as='h2' attached='top'>
       Employees List
-      <Link to='/employees/add'>
+      <Link to={`/companies/${companyId}/employees/add`}>
         <Button primary floated='right'>Add</Button>
       </Link>
     </Header>

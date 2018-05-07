@@ -1,17 +1,24 @@
 import Validator from 'validator'
-import * as cnpj from '@fnando/cnpj'
 
 const ValidateForm = fields => {
   let errors = []
+
+  if (Validator.isEmpty(fields.user)) {
+    errors.push('Email is required')
+  }
 
   if (Validator.isEmpty(fields.name)) {
     errors.push('Name is required')
   }
 
-  if (!cnpj.isValid(fields.cnpj)) {
-    errors.push('CNPJ is invalid')
+  if (Validator.isEmpty(fields.position)) {
+    errors.push('Position is required')
   }
-  console.log(fields.cnpj)
+
+  if (Validator.isEmpty(fields.birthDate)) {
+    errors.push('Birth Date is required')
+  }
+
   return errors
 }
 
