@@ -32,9 +32,9 @@ class EmployeeList extends Component {
       })
   }
 
-  handleRemove = id => {
+  handleRemove = employeeId => {
     this.setState({ isLoading: true })
-    EmployeeAPI.remove(id)
+    EmployeeAPI.remove(this.state.companyId, employeeId)
       .then(response => this.fetchEmployees())
       .catch(error => {
         console.log(error)
