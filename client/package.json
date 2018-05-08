@@ -6,6 +6,7 @@
     "@fnando/cnpj": "^0.1.0",
     "axios": "^0.18.0",
     "lodash": "^4.17.10",
+    "moment": "^2.22.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
