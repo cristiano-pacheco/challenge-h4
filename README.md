@@ -84,7 +84,7 @@ $ npm run lint:fix
 ```
 
 ## Usage
-* API endpoint is: **http://localhost:3000**
+* APP address is: **http://localhost:3000**
 
 ## Commands
 ### To run tests:
