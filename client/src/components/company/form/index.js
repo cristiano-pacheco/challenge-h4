@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Fragment } from 'react'
+import Breadcrumb from '../../common/breadcrumb'
 
 import CompanyForm from './form'
 import * as CompanyAPI from '../../../api/company'
@@ -18,6 +19,14 @@ function getPayload (data) {
     name: data.name,
     cnpj: data.cnpj
   }
+}
+
+function getBreadcrumbData (id) {
+  const nameLink = id ? 'Update' : 'Create'
+  return [
+    { name: 'Companies', active: false, link: '/companies' },
+    { name: nameLink, active: true, link: '' }
+  ]
 }
 
 class CompanyFormContainer extends PureComponent {
@@ -126,11 +135,14 @@ class CompanyFormContainer extends PureComponent {
 
   render () {
     return (
-      <CompanyForm
-        {...this.state}
-        handleInputChange={this.handleInputChange}
-        handleSubmit={this.handleSubmit}
-      />
+      <Fragment>
+        <Breadcrumb links={getBreadcrumbData(this.state.id)} />
+        <CompanyForm
+          {...this.state}
+          handleInputChange={this.handleInputChange}
+          handleSubmit={this.handleSubmit}
+        />
+      </Fragment>
     )
   }
 }

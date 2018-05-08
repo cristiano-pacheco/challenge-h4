@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 
 import * as UserAPI from '../../../api/user'
 import UserGrid from './grid'
+import Breadcrumb from '../../common/breadcrumb'
+
+const getBreadcrumbData = () => [
+  { name: 'Users', active: true, link: '' }
+]
 
 class UserList extends Component {
   constructor () {
@@ -40,11 +45,15 @@ class UserList extends Component {
 
   render () {
     return (
-      <UserGrid
-        isLoading={this.state.isLoading}
-        users={this.state.users}
-        handleRemove={this.handleRemove}
-      />
+      <div>
+        <Breadcrumb links={getBreadcrumbData()} />
+        <UserGrid
+          isLoading={this.state.isLoading}
+          users={this.state.users}
+          handleRemove={this.handleRemove}
+        />
+      </div>
+
     )
   }
 }

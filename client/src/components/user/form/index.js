@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 
 import UserForm from './form'
 import * as UserAPI from '../../../api/user'
 import ValidateForm from '../../auth/login/validator'
+import Breadcrumb from '../../common/breadcrumb'
 
 const initialState = {
   id: null,
@@ -18,6 +19,14 @@ function getPayload (data) {
     email: data.email,
     password: data.password
   }
+}
+
+function getBreadcrumbData (id) {
+  const nameLink = id ? 'Update' : 'Create'
+  return [
+    { name: 'Users', active: false, link: '/users' },
+    { name: nameLink, active: true, link: '' }
+  ]
 }
 
 class UserFormContainer extends PureComponent {
@@ -125,11 +134,14 @@ class UserFormContainer extends PureComponent {
 
   render () {
     return (
-      <UserForm
-        {...this.state}
-        handleInputChange={this.handleInputChange}
-        handleSubmit={this.handleSubmit}
-      />
+      <Fragment>
+        <Breadcrumb links={getBreadcrumbData(this.state.id)} />
+        <UserForm
+          {...this.state}
+          handleInputChange={this.handleInputChange}
+          handleSubmit={this.handleSubmit}
+        />
+      </Fragment>
     )
   }
 }

@@ -1,9 +1,17 @@
-import React, { Component } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 
-import * as EmployeeAPI from '../../../api/employee'
 import EmployeeGrid from './grid'
+import * as EmployeeAPI from '../../../api/employee'
+import Breadcrumb from '../../common/breadcrumb'
 
-class EmployeeList extends Component {
+function getBreadcrumbData () {
+  return [
+    { name: 'Companies', active: false, link: '/companies' },
+    { name: 'Employees', active: true, link: '' }
+  ]
+}
+
+class EmployeeList extends PureComponent {
   constructor () {
     super()
     this.state = {
@@ -44,10 +52,13 @@ class EmployeeList extends Component {
 
   render () {
     return (
-      <EmployeeGrid
-        {...this.state}
-        handleRemove={this.handleRemove}
-      />
+      <Fragment>
+        <Breadcrumb links={getBreadcrumbData(this.state.id)} />
+        <EmployeeGrid
+          {...this.state}
+          handleRemove={this.handleRemove}
+        />
+      </Fragment>
     )
   }
 }

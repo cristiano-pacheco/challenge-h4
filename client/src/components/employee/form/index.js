@@ -1,10 +1,20 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 
 import EmployeeForm from './form'
-import * as EmployeeAPI from '../../../api/employee'
-import * as UserAPI from '../../../api/user'
 import ValidateForm from './validator'
+import * as UserAPI from '../../../api/user'
+import Breadcrumb from '../../common/breadcrumb'
+import * as EmployeeAPI from '../../../api/employee'
 import { getAgeFromDate, getDate } from '../../../utils/helpers'
+
+function getBreadcrumbData ({ companyId, employeeId }) {
+  const nameLink = employeeId ? 'Update' : 'Create'
+  return [
+    { name: 'Companies', active: false, link: '/companies' },
+    { name: 'Employees', active: false, link: `/companies/${companyId}/employees` },
+    { name: nameLink, active: true, link: '' }
+  ]
+}
 
 const initialState = {
   employeeId: null,
@@ -165,13 +175,17 @@ class EmployeeFormContainer extends PureComponent {
   }
 
   render () {
+    const { companyId, employeeId } = this.state
     return (
-      <EmployeeForm
-        {...this.state}
-        handleInputChange={this.handleInputChange}
-        handleSubmit={this.handleSubmit}
-        handleSelectChange={this.handleSelectChange}
-      />
+      <Fragment>
+        <Breadcrumb links={getBreadcrumbData({ companyId, employeeId })} />
+        <EmployeeForm
+          {...this.state}
+          handleInputChange={this.handleInputChange}
+          handleSubmit={this.handleSubmit}
+          handleSelectChange={this.handleSelectChange}
+        />
+      </Fragment>
     )
   }
 }

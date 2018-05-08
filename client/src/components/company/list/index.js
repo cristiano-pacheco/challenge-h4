@@ -1,9 +1,14 @@
-import React, { Component } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 
-import * as CompanyAPI from '../../../api/company'
 import CompanyGrid from './grid'
+import * as CompanyAPI from '../../../api/company'
+import Breadcrumb from '../../common/breadcrumb'
 
-class CompanyList extends Component {
+const getBreadcrumbData = () => [
+  { name: 'Companies', active: true, link: '' }
+]
+
+class CompanyList extends PureComponent {
   constructor () {
     super()
     this.state = {
@@ -40,11 +45,14 @@ class CompanyList extends Component {
 
   render () {
     return (
-      <CompanyGrid
-        isLoading={this.state.isLoading}
-        companies={this.state.companies}
-        handleRemove={this.handleRemove}
-      />
+      <Fragment>
+        <Breadcrumb links={getBreadcrumbData()} />
+        <CompanyGrid
+          isLoading={this.state.isLoading}
+          companies={this.state.companies}
+          handleRemove={this.handleRemove}
+        />
+      </Fragment>
     )
   }
 }
