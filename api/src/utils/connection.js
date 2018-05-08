@@ -2,13 +2,7 @@
 
 const Mongoose = require('mongoose')
 
-const host = process.env.DB_MONGO_HOST || 'localhost'
-const port = process.env.DB_MONGO_PORT || '27017'
-const db = process.env.DB_MONGO_DATABASE || 'hapiapi'
-
-const MongoDBUrl = `mongodb://${host}:${port}/${db}`
-
-Mongoose.connect(MongoDBUrl)
+Mongoose.connect(process.env.MONGO_URL)
 Mongoose.Promise = global.Promise
 
 const connection = Mongoose.connection
