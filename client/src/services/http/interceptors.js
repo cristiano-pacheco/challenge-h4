@@ -21,14 +21,14 @@ export default http => {
       return window.location = '/auth/login'
     }
 
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && window.location.pathname !== '/auth/login') {
       // return swal('Atenção', 'The user session has expired, please log in again.', 'error')
       //   .then(() => {
       //     logout()
       //     return window.location = '/auth/login'
       //   })
       logout()
-      return window.location = '/auth/login'
+      window.location = '/auth/login'
     }
 
     return Promise.reject(error.response)
