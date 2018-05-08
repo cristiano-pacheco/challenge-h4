@@ -9,6 +9,24 @@ This package contains the code developed to solve the final challenge proposed i
   * Authentication with JWT
   * Swagger documentation
 
+## Stack (Backend)
+  * Nodejs 8.9+
+  * Hapijs framework
+  * MongoDB
+  * Swagger
+  * Standard style guide
+  * Jest
+  * PM2
+
+## Stack (Frontend)
+  * React
+  * React Router
+  * Redux
+  * Axios
+  * Semantic UI React
+  * Standard style guide
+  * Jest
+
 ## Prerequisites
 
 Make sure you have installed **Node 8.9+**, **Npm 5.4+** and **MongoDB**.
