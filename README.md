@@ -1,9 +1,11 @@
-# Hapi / MongoDB Starter Kit for Restful API's Development
+# Coding Challenge for Immersion in Development of APIS Training - Horizon 4
 
-This package provides a basic skeleton for an API development in Nodejs platform with Hapi framework and MongoDB.
+This package contains the code developed to solve the final challenge proposed in the API's immersion training
 
 ## Features
   * Crud of users
+  * Crud of companies
+  * Crud of employees
   * Authentication with JWT
   * Swagger documentation
 
@@ -18,17 +20,17 @@ Make sure you have installed **Node 8.9+**, **Npm 5.4+** and **MongoDB**.
 These commands will download the repository and prepare it for you.
 
 ```ssh
-git clone --depth 1 -b master git@github.com:cristianopacheco/hapi-start.git
-cd hapi-start
+git clone --depth 1 -b master git@github.com:cristianopacheco/challenge-h4.git
+cd challenge-h4
 rm -rf ./.git/
 git init
 git add --all
 git commit -m "init"
 ```
 
-### Setup
+## Setup server side
 ``` bash
- $ npm i && npm start
+ $ cd api && npm i && npm start
 ```
 
 ## Usage
@@ -58,6 +60,36 @@ $ npm run lint:fix
 * The Standard style guide was used in this project
 * Jest was used for unit and acceptance tests
 
+## Setup client side
+``` bash
+ $ cd client && npm i && npm start
+```
+
+## Usage
+* API endpoint is: **http://localhost:3000**
+
+## Commands
+### To run tests:
+
+``` bash
+$ npm run test
+```
+
+### To run the linter:
+
+``` bash
+$ npm run lint
+```
+
+### To run and fix the code with linter:
+
+``` bash
+$ npm run lint:fix
+```
+
+## Things worth mentioning
+* The Standard style guide was used in this project
+* Jest was used for unit and acceptance tests
 
 ## License
 
