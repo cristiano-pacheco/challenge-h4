@@ -8,7 +8,6 @@ require('./bootstrap')
 require('./utils/connection')
 
 const server = new Hapi.Server({
-  host: 'localhost',
   port: process.env.PORT || 3000,
   routes: { cors: true }
 })
