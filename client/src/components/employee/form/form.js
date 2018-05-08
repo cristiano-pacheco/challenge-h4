@@ -39,7 +39,7 @@ const EmployeeForm = ({
     <Header as='h2' attached='top'>
       Employee Form
       <Link to={`/companies/${companyId}/employees`}>
-        <Button primary floated='right'>List</Button>
+        <Button color='black' floated='right'>List</Button>
       </Link>
     </Header>
     <Segment attached>
@@ -85,7 +85,7 @@ const EmployeeForm = ({
             onChange={handleSelectChange}
           />
         </Form.Group>
-        <Button type='submit' disabled={isLoading} primary icon>
+        <Button type='submit' disabled={isLoading} color='black' icon>
           <Icon name='save' /> Save
         </Button>
       </Form>

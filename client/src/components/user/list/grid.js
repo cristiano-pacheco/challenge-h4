@@ -8,7 +8,7 @@ const UserGrid = ({ isLoading, users, handleRemove }) => (
     <Header as='h2' attached='top'>
       Users List
       <Link to='/users/add'>
-        <Button primary floated='right'>Add</Button>
+        <Button color='black' floated='right'>Add</Button>
       </Link>
     </Header>
     <Segment attached loading={isLoading}>
@@ -28,7 +28,7 @@ const UserGrid = ({ isLoading, users, handleRemove }) => (
               <Table.Cell textAlign='center'>
                 <Icon
                   data-js='btn-delete'
-                  color='red'
+                  color='black'
                   size='large'
                   name='trash'
                   className='btn-pointer'

@@ -8,7 +8,7 @@ const CompanyGrid = ({ isLoading, companies, handleRemove }) => (
     <Header as='h2' attached='top'>
       Companies List
       <Link to='/companies/add'>
-        <Button primary floated='right'>Add</Button>
+        <Button color='black' floated='right'>Add</Button>
       </Link>
     </Header>
     <Segment attached loading={isLoading}>
@@ -33,14 +33,14 @@ const CompanyGrid = ({ isLoading, companies, handleRemove }) => (
                 <Link to={`/companies/${item._id}/employees`}>
                   <Icon
                     data-js='btn-employees'
-                    color='blue'
+                    color='black'
                     name='users'
                     size='large'
                   />
                 </Link>
                 <Icon
                   data-js='btn-delete'
-                  color='red'
+                  color='black'
                   name='trash'
                   size='large'
                   className='btn-pointer'

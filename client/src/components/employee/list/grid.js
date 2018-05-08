@@ -15,7 +15,7 @@ const EmployeeGrid = ({
     <Header as='h2' attached='top'>
       Employees List
       <Link to={`/companies/${companyId}/employees/add`}>
-        <Button primary floated='right'>Add</Button>
+        <Button color='black' floated='right'>Add</Button>
       </Link>
     </Header>
     <Segment attached loading={isLoading}>
@@ -43,7 +43,7 @@ const EmployeeGrid = ({
               <Table.Cell textAlign='center'>
                 <Icon
                   data-js='btn-delete'
-                  color='red'
+                  color='black'
                   name='trash'
                   size='large'
                   className='btn-pointer'

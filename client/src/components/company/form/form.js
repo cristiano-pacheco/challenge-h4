@@ -28,7 +28,7 @@ const CompanyForm = ({
     <Header as='h2' attached='top'>
       Company Form
       <Link to='/companies'>
-        <Button primary floated='right'>List</Button>
+        <Button color='black' floated='right'>List</Button>
       </Link>
     </Header>
     <Segment attached>
@@ -56,7 +56,7 @@ const CompanyForm = ({
             />
           }
         />
-        <Button type='submit' disabled={isLoading} primary icon>
+        <Button type='submit' disabled={isLoading} color='black' icon>
           <Icon name='save' /> Save
         </Button>
       </Form>

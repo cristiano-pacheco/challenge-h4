@@ -26,7 +26,7 @@ const UserForm = ({
     <Header as='h2' attached='top'>
       User Form
       <Link to='/users'>
-        <Button primary floated='right'>List</Button>
+        <Button color='black' floated='right'>List</Button>
       </Link>
     </Header>
     <Segment attached>
@@ -50,7 +50,7 @@ const UserForm = ({
           onChange={handleInputChange}
           value={password}
         />
-        <Button type='submit' disabled={isLoading} primary icon>
+        <Button type='submit' disabled={isLoading} color='black' icon>
           <Icon name='save' /> Save
         </Button>
       </Form>
